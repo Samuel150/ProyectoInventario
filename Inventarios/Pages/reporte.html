@@ -1,0 +1,156 @@
+<html>
+
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Inventarios</title>
+
+        <!-- Favicon -->
+        <link rel="icon" href="../Assets/images/gobierno.jpg" />   
+
+        <!--Plugin CSS-->
+        <link href="../Assets/css/plugins.min.css" rel="stylesheet">
+
+        <link href="../Assets/css/fullcalendar.min.css" rel="stylesheet">
+
+        <!--main Css-->
+        <link href="../Assets/css/main.min.css" rel="stylesheet">
+        
+</head>
+<body>
+        <!-- Main-Content -->
+        <div class="wrapper">
+            <div id="header-fix" class="header w-100">
+                <nav class="navbar navbar-expand-lg crystal-bg-primary py-0 pl-0 text-white">
+                    <a href="index.html" class="navbar-brand site-logo crystal-bg-secondry mr-0 pt-4 pl-3"><font color="white">INVENTARIOS</font></a>
+                    <div class="navbar-header px-3 pt-4 mr-lg-4 crystal-brd-right">
+                        <button type="button" id="sidebarCollapse" class="navbar-btn bg-transparent">
+                            <span class="navbar-toggler-icon"></span>
+                            <span class="navbar-toggler-icon"></span>
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                    
+                </nav>
+            </div>
+            <nav id="sidebar">
+                <div class="sidebar-nav">
+                    <ul class="metismenu list-unstyled mb-0" id="menu">
+                    	<!--CAMBIAR SECCION EN CADA PAGINA, LI CLASS ACTIVE A LA PAGINA ACTUAL-->
+                        <li><a href="index.html" class="navbar-brand site-logo crystal-bg-secondry mr-0 pt-4 pl-3"></a></li>
+
+                        
+                                <li class="my-4 nav-title position-relative"><span class="text-white mb-0">Menu Inventarios</span></li>
+                                <li class="active"><a class="active" href="index.html"><i class="fa fa-home"></i> P&aacute;gina principal</a></li>
+                                <li><a  href="addProduct.html"><i class="fa fa-plus-square"></i> Insertar Bien</a></li>
+                                <li><a  href="modifyProduct.html"><i class="fa fa-edit"></i> Modificar Bien</a></li>
+                                <li><a  href="sideMenu.html"><i class="fa fa-calendar-check-o"></i> Reportes</a></li>
+                                <li><a  href="sideMenu.html"><i class="fa fa-user"></i> Crear Usuario</a></li>
+                       
+
+                    </ul>
+                </div>
+            </nav>
+            <div id="content">
+                <div class="container-fluid">
+
+                    <div class="row py-3 text-sm-left text-center crystal-bg-primary mb-4 border crystal-border-primary-light border-left-0 border-right-0 border-bottom-0 language">
+                        <div class="col-12 col-sm-6 mb-2 mb-sm-0 align-self-center">
+                            <ol class="breadcrumb mb-0 bg-transparent crystal-light p-0">
+                                <li class="breadcrumb-item"><a href="#" class="text-white">P&aacute;gina Principal</a></li>
+                                <!--CAMBIAR AL NOMBRE DE LA PAGINA-->
+                                <li class="breadcrumb-item active">Reporte</li>
+                            </ol>
+                        </div>
+                        
+                    </div>
+                    
+                    <!-- ACA EMPIEZAN CON SU CONTENIDO-->
+                    <div class="content">
+                        <div class="col-12 col-xl-12">
+                            <div class="card crystal-border-light crystal-shadow">
+                                <div class="card-body">
+                                    <h6 class="heading-title pl-3 position-relative">Historial Transferencias</h6>
+                                    <div class="table-responsive">
+                                       <table id="data1" class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>IdBien</th>
+                                                    <th>Ubicacion</th>
+                                                    <th>clasificacion</th>
+                                                    <th>Estado</th>
+                                                    <th>Responsable</th>
+                                                    <th>Calificacion</th>
+                                                    <th>Precio</th>
+                                                    <th>Edit</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th>IdBien</th>
+                                                    <th>Ubicacion</th>
+                                                    <th>clasificacion</th>
+                                                    <th>Estado</th>
+                                                    <th>Responsable</th>
+                                                    <th>Calificacion</th>
+                                                    <th>Precio</th>
+                                                    <th>edit</th>
+                                                </tr>  
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <br />
+                                    <button class="btn btn-primary" id="button">Generar reporte</button>
+                                </div><!--body-->   
+                                
+                            </div><!--card-->   
+                        </div>
+                    	
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Main-Content -->
+
+        <!-- Top To Bottom-->
+        <div class="scrollup text-center crystal-bg-primary">
+            <a href="#" class="text-white"><i class="fa fa-chevron-up"></i></a>
+        </div>
+        <!-- End Top To Bottom-->
+        <script src="../Assets/js/jquery-3.4.1.min.js"></script> 
+        <script src="../Assets/js/FileSaver/FileSaver.js" type="text/javascript"></script>
+        <script src="../Assets/js/js-xlsx/dist/xlsx.full.min.js" type="text/javascript"></script>
+        
+        <!-- End Chat-->
+        <script type="text/javascript">
+        var wb= XLSX.utils.table_to_book(document.getElementById('data1'),{sheet:"Inventarios Historial"});
+        
+        var wbout= XLSX.write(wb,{bookType:'xlsx',bookSST:true,type:'binary'});
+        function s2ab(s){
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i = 0; i <s.length; i++) {
+                view[i]=s.charCodeAt(i) & 0xFF;
+            }
+            return buf;
+        }
+
+        $("#button").click(function(){
+            saveAs(new Blob([s2ab(wbout)],{type:"application/octet_stream"}),'reporte.xlsx');
+        });
+        </script>
+
+        <!-- jQuery -->
+
+        <script src="../Assets/js/plugins.min.js"></script>          
+        <script src="../Assets/js/moment.min.js"></script>
+        <script src="../Assets/js/fullcalendar.min.js"></script>
+        <script src="../Assets/js/fullcalendar.js"></script>
+        <script src="../Assets/js/chartist.js"></script>          
+        <script src="../Assets/js/common.js"></script>
+        <script src="../Assets/js/TableExport/src/stable/js/tableexport.js" type="text/javascript"></script>
+    </body>
+
+
+</html>
