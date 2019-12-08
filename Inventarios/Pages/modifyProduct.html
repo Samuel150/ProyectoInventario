@@ -45,7 +45,7 @@
                                 <li><a href="index.html"><i class="fa fa-home"></i> P&aacute;gina principal</a></li>
                                 <li><a href="addProduct.html"><i class="fa fa-plus-square"></i> Insertar Bien</a></li>
                                 <li class="active"><a class="active" href="modifyProdruct.html"><i class="fa fa-edit"></i> Modificar Bien</a></li>
-                                <li><a  href="sideMenu.html"><i class="fa fa-calendar-check-o"></i> Reportes</a></li>
+                                <li><a  href="reporte.html"><i class="fa fa-calendar-check-o"></i> Reportes</a></li>
                                 <li><a  href="sideMenu.html"><i class="fa fa-user"></i> Crear Usuario</a></li>
                        
 
@@ -88,14 +88,14 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <th>IdBien</th>
-                                                    <th>Ubicacion</th>
-                                                    <th>clasificacion</th>
-                                                    <th>Estado</th>
-                                                    <th>Responsable</th>
-                                                    <th>Calificacion</th>
-                                                    <th>Precio</th>
-                                                    <th><a href="#myModal18" role="button" class="ti-pencil-alt" data-toggle="modal"></a></th>
+                                                    <td class="id">IdBien</td>
+                                                    <td class="ubicacion">ubicacion</td>
+                                                    <td class="clasificacion">clasificacion</td>
+                                                    <td class="estado">Estado</td>
+                                                    <td class="responsable">responsable</td>
+                                                    <td class="calificacion">Calificacion</td>
+                                                    <td class="precio">Precio</td>
+                                                    <td><a href="#myModal18" id="edit" role="button" class="ti-pencil-alt" data-toggle="modal"></a></td>
                                                 </tr>  
                                             </tbody>
                                         </table>
@@ -130,7 +130,7 @@
                                             <div class="form-group">
                                                 <select id="ubicacion" class="form-control">
                                                     <option>---Select One---</option>
-                                                    <option> Option 1 </option>
+                                                    <option>ubicacion</option>
                                                     <option> Option 2 </option>
                                                     <option> Option 3 </option>
                                                     <option> Option 4 </option>
@@ -144,7 +144,7 @@
                                             <div class="form-group">
                                                 <select id="responsable" class="form-control">
                                                     <option>---Select One---</option>
-                                                    <option> Option 1 </option>
+                                                    <option>responsable</option>
                                                     <option> Option 2 </option>
                                                     <option> Option 3 </option>
                                                     <option> Option 4 </option>
@@ -233,6 +233,30 @@
                     alert(id);
 
                 });   
+                $('#edit').click(function(){
+                    var id=$(this).closest('tr').find('.id').text();
+                    var ubicacion=$(this).closest('tr').children('.ubicacion').text();
+                    var responsable=$(this).closest('tr').children('.responsable').text();
+                    var estado=$(this).closest('tr').children('.estado').text();
+                    var clasificacion=$(this).closest('tr').children('.clasificacion').text();
+                    var precio=$(this).closest('tr').children('.precio').text();
+                    var calificacion=$(this).closest('tr').children('.calificacion').text();
+                    $('#id').val(id);
+                    $("#ubicacion option").filter(function() {
+                      return $(this).text() == ubicacion;
+                    }).attr('selected', 'selected');
+                    $("#responsable option").filter(function() {
+                      return $(this).text() == responsable;
+                    }).attr('selected', 'selected');
+                    $("#estado option").filter(function() {
+                      return $(this).text() == estado;
+                    }).attr('selected', 'selected');
+                    $("#clasificacion option").filter(function() {
+                      return $(this).text() == clasificacion;
+                    }).attr('selected', 'selected');
+                    $('#calificacion').val(calificacion);
+                    $('#precio').val(precio);
+                });
 
 
 
