@@ -87,11 +87,13 @@
                                         <div class="col-12 col-md-9">
                                             <div class="form-group">
                                                 <select id="ubicacion" class="form-control">
-                                                    <option>---Select One---</option>
-                                                    <option> Option 1 </option>
-                                                    <option> Option 2 </option>
-                                                    <option> Option 3 </option>
-                                                    <option> Option 4 </option>
+                                                    <?php
+                                                    $xml = file_get_contents("http://skynet.lp.upb.edu:7875/ubicaciones");
+                                                    $someArray = json_decode($xml, true);
+                                                    foreach ($someArray as $key => $value) {
+                                                        echo "<option value=\"".$value["IdUbicacion"]."\">".$value["UbicacionD"]."</option>";
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -101,11 +103,13 @@
                                         <div class="col-12 col-md-9">
                                             <div class="form-group">
                                                 <select id="responsable" class="form-control">
-                                                    <option>---Select One---</option>
-                                                    <option> Option 1 </option>
-                                                    <option> Option 2 </option>
-                                                    <option> Option 3 </option>
-                                                    <option> Option 4 </option>
+                                                    <?php
+                                                    $xml = file_get_contents("http://skynet.lp.upb.edu:7875/usuarios");
+                                                    $someArray = json_decode($xml, true);
+                                                    foreach ($someArray as $key => $value) {
+                                                        echo "<option value=\"".$value["CI"]."\">".$value["CI"]." ".$value["Nombre"]."</option>";
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -115,11 +119,13 @@
                                         <div class="col-12 col-md-9">
                                             <div class="form-group">
                                                 <select id="estado" class="form-control">
-                                                    <option>---Select One---</option>
-                                                    <option> Option 1 </option>
-                                                    <option> Option 2 </option>
-                                                    <option> Option 3 </option>
-                                                    <option> Option 4 </option>
+                                                    <?php
+                                                    $xml = file_get_contents("http://skynet.lp.upb.edu:7875/estados");
+                                                    $someArray = json_decode($xml, true);
+                                                    foreach ($someArray as $key => $value) {
+                                                        echo "<option value=\"".$value["IdEstado"]."\">".$value["EstadoD"]."</option>";
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -129,11 +135,13 @@
                                         <div class="col-12 col-md-9">
                                             <div class="form-group">
                                                 <select id="clasificacion" class="form-control">   
-                                                    <option>---Select One---</option>
-                                                    <option> Option 1 </option>
-                                                    <option> Option 2 </option>
-                                                    <option> Option 3 </option>
-                                                    <option> Option 4 </option>
+                                                   <?php
+                                                    $xml = file_get_contents("http://skynet.lp.upb.edu:7875/clasificaciones");
+                                                    $someArray = json_decode($xml, true);
+                                                    foreach ($someArray as $key => $value) {
+                                                        echo "<option value=\"".$value["IdClasificacion"]."\">".$value["ClasificacionD"]."</option>";
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -187,7 +195,15 @@
                     var clasificacion=$('#clasificacion option:selected').val();
                     var precio= $('#precio').val();
                     var calificacion= $('#calificacion').val();
-                    alert(id);
+                    $.ajax({
+                          type: "POST",
+                          url: "http://skynet.lp.upb.edu:7875/usuarios",
+                          data: {id:id,ubicacion:ubicacion,responsable:responsable,estado:estado,clasificacion:clasificacion,precio:precio,calificacion:calificacion},
+                        }).done(function(data) {
+                            alert("el bien fue agregado exitosamente");
+                        }).fail(function (data){
+                        });
+                
 
                 });   
 
