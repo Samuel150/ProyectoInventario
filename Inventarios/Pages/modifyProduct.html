@@ -88,16 +88,26 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td class="id">IdBien</td>
-                                                    <td class="ubicacion">ubicacion</td>
-                                                    <td class="clasificacion">clasificacion</td>
-                                                    <td class="estado">Estado</td>
-                                                    <td class="responsable">responsable</td>
-                                                    <td class="calificacion">Calificacion</td>
-                                                    <td class="precio">Precio</td>
-                                                    <td><a href="#myModal18" id="edit" role="button" class="ti-pencil-alt" data-toggle="modal"></a></td>
-                                                </tr>
+
+                                                <?php
+                                                $xml = file_get_contents("http://skynet.lp.upb.edu:7875/usuarios");
+                                                $someArray = json_decode($xml, true);
+                                                foreach ($someArray as $key => $value) {
+
+                                                    echo "<tr>";
+                                                    echo "<td class=\"id\">IdBien</td>";
+                                                    echo "<td class=\"ubicacion\">ubicacion</td>";
+                                                    echo "<td class=\"clasificacion\">clasificacion</td>";
+                                                    echo "<td class=\"estado\">Estado</td>";
+                                                    echo "<td class=\"responsable\">responsable</td>";
+                                                    echo "<td class=\"calificacion\">Calificacion</td>";
+                                                    echo "<td class=\"precio\">Precio</td>";
+                                                    echo "<td><a href=\"#myModal18\" id=\"edit\" role=\"button\" class=\"ti-pencil-alt\" data-toggle=\"modal\"></a></td>";
+                                                    echo "</tr>"; 
+                                                }
+                                                
+                                                ?> 
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -130,11 +140,13 @@
                                         <div class="col-12 col-md-9">
                                             <div class="form-group">
                                                 <select id="ubicacion" class="form-control">
-                                                    <option>---Select One---</option>
-                                                    <option>ubicacion</option>
-                                                    <option> Option 2 </option>
-                                                    <option> Option 3 </option>
-                                                    <option> Option 4 </option>
+                                                    <?php
+                                                    $xml = file_get_contents("http://skynet.lp.upb.edu:7875/ubicaciones");
+                                                    $someArray = json_decode($xml, true);
+                                                    foreach ($someArray as $key => $value) {
+                                                        echo "<option value=\"".$value["IdUbicacion"]."\">".$value["UbicacionD"]."</option>";
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -144,11 +156,13 @@
                                         <div class="col-12 col-md-9">
                                             <div class="form-group">
                                                 <select id="responsable" class="form-control">
-                                                    <option>---Select One---</option>
-                                                    <option>responsable</option>
-                                                    <option> Option 2 </option>
-                                                    <option> Option 3 </option>
-                                                    <option> Option 4 </option>
+                                                    <?php
+                                                    $xml = file_get_contents("http://skynet.lp.upb.edu:7875/usuarios");
+                                                    $someArray = json_decode($xml, true);
+                                                    foreach ($someArray as $key => $value) {
+                                                        echo "<option value=\"".$value["CI"]."\">".$value["CI"]." ".$value["Nombre"]."</option>";
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -158,11 +172,13 @@
                                         <div class="col-12 col-md-9">
                                             <div class="form-group">
                                                 <select id="estado" class="form-control">
-                                                    <option>---Select One---</option>
-                                                    <option> Option 1 </option>
-                                                    <option> Option 2 </option>
-                                                    <option> Option 3 </option>
-                                                    <option> Option 4 </option>
+                                                    <?php
+                                                    $xml = file_get_contents("http://skynet.lp.upb.edu:7875/estados");
+                                                    $someArray = json_decode($xml, true);
+                                                    foreach ($someArray as $key => $value) {
+                                                        echo "<option value=\"".$value["IdEstado"]."\">".$value["EstadoD"]."</option>";
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -171,12 +187,16 @@
                                         </div>
                                         <div class="col-12 col-md-9">
                                             <div class="form-group">
-                                                <select id="clasificacion" class="form-control">
-                                                    <option>---Select One---</option>
-                                                    <option> Option 1 </option>
-                                                    <option> Option 2 </option>
-                                                    <option> Option 3 </option>
-                                                    <option> Option 4 </option>
+
+                                                <select id="clasificacion" class="form-control">   
+                                                   <?php
+                                                    $xml = file_get_contents("http://skynet.lp.upb.edu:7875/clasificaciones");
+                                                    $someArray = json_decode($xml, true);
+                                                    foreach ($someArray as $key => $value) {
+                                                        echo "<option value=\"".$value["IdClasificacion"]."\">".$value["ClasificacionD"]."</option>";
+                                                    }
+                                                    ?>
+
                                                 </select>
                                             </div>
                                         </div>
@@ -231,7 +251,14 @@
                     var clasificacion=$('#clasificacion option:selected').val();
                     var precio= $('#precio').val();
                     var calificacion= $('#calificacion').val();
-                    alert(id);
+                    $.ajax({
+                          type: "POST",
+                          url: "http://skynet.lp.upb.edu:7875/usuarios",
+                          data: {id:id,ubicacion:ubicacion,responsable:responsable,estado:estado,clasificacion:clasificacion,precio:precio,calificacion:calificacion},
+                        }).done(function(data) {
+                            alert("el bien fue agregado exitosamente");
+                        }).fail(function (data){
+                        });
 
                 });
                 $('#edit').click(function(){
@@ -276,3 +303,4 @@
 
 
 </html>
+
