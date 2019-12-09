@@ -7,7 +7,7 @@
         <title>Inventarios</title>
 
         <!-- Favicon -->
-        <link rel="icon" href="../Assets/images/gobierno.jpg" />   
+        <link rel="icon" href="../Assets/images/gobierno.jpg" />
 
         <!--Plugin CSS-->
         <link href="../Assets/css/plugins.min.css" rel="stylesheet">
@@ -16,7 +16,7 @@
 
         <!--main Css-->
         <link href="../Assets/css/main.min.css" rel="stylesheet">
-        
+
 </head>
 <body>
         <!-- Main-Content -->
@@ -31,7 +31,7 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                     </div>
-                    
+
                 </nav>
             </div>
             <nav id="sidebar">
@@ -40,14 +40,15 @@
                         <!--CAMBIAR SECCION EN CADA PAGINA, LI CLASS ACTIVE A LA PAGINA ACTUAL-->
                         <li><a href="index.html" class="navbar-brand site-logo crystal-bg-secondry mr-0 pt-4 pl-3"></a></li>
 
-                        
+
                                 <li class="my-4 nav-title position-relative"><span class="text-white mb-0">Menu Inventarios</span></li>
                                 <li><a href="index.html"><i class="fa fa-home"></i> P&aacute;gina principal</a></li>
-                                <li><a href="addProduct.html"><i class="fa fa-plus-square"></i> Insertar Bien</a></li>
-                                <li class="active"><a class="active" href="modifyProdruct.html"><i class="fa fa-edit"></i> Modificar Bien</a></li>
+                                <li><a  href="addProduct.html"><i class="fa fa-plus-square"></i> Insertar Bien</a></li>
+                                <li class="active"><a class="active"  href="modifyProduct.html"><i class="fa fa-edit"></i> Modificar Bien</a></li>
                                 <li><a  href="reporte.html"><i class="fa fa-calendar-check-o"></i> Reportes</a></li>
-                                <li><a  href="sideMenu.html"><i class="fa fa-user"></i> Crear Usuario</a></li>
-                       
+                                <li><a  href="crearUsuario.html"><i class="fa fa-user"></i> Crear Usuario</a></li>
+                                <li><a  href="buscarUsuario.html"><i class="fa fa-search"></i> Buscar Usuario</a></li>
+
 
                     </ul>
                 </div>
@@ -63,9 +64,9 @@
                                 <li class="breadcrumb-item active">Modificar bien</li>
                             </ol>
                         </div>
-                        
+
                     </div>
-                    
+
                     <!-- ACA EMPIEZAN CON SU CONTENIDO-->
                     <div class="content">
                         <div class="col-12 col-xl-12">
@@ -96,13 +97,13 @@
                                                     <td class="calificacion">Calificacion</td>
                                                     <td class="precio">Precio</td>
                                                     <td><a href="#myModal18" id="edit" role="button" class="ti-pencil-alt" data-toggle="modal"></a></td>
-                                                </tr>  
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
-                                </div><!--body-->   
-                            </div><!--card-->   
-                        </div><!--col12-->   
+                                </div><!--body-->
+                            </div><!--card-->
+                        </div><!--col12-->
                     </div>
                     <div id="myModal18" class="modal fade" data-focus="false" data-easein="rotateInUpRight" data-easeout="rotateOutUpRight" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                       <div class="modal-dialog modal-md">
@@ -110,10 +111,10 @@
                           <div class="modal-header">
                             <h4 class="modal-title">Modificar un bien</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            
+
                           </div>
                           <div class="modal-body">
-                        
+
                                     <div class="row">
                                         <div class="col-8 col-md-3 align-self-center text-md-right">
                                             <label>Identificador del Bien:</label>
@@ -121,7 +122,7 @@
                                         <div class="col-8 col-md-9">
                                             <div class="form-group">
                                                 <input id="id" type="text" class="form-control" placeholder="Identificador">
-                                            </div> 
+                                            </div>
                                         </div>
                                         <div class="col-12 col-md-3 text-md-right align-self-center">
                                             <label>Ubicaci&oacute;n:</label>
@@ -170,7 +171,7 @@
                                         </div>
                                         <div class="col-12 col-md-9">
                                             <div class="form-group">
-                                                <select id="clasificacion" class="form-control">   
+                                                <select id="clasificacion" class="form-control">
                                                     <option>---Select One---</option>
                                                     <option> Option 1 </option>
                                                     <option> Option 2 </option>
@@ -179,14 +180,14 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-8 col-md-3 align-self-center text-md-right">
                                             <label>Calificaci&oacute;n:</label>
                                         </div>
                                         <div class="col-8 col-md-9">
                                             <div class="form-group">
                                                 <input id="calificacion" type="text" class="form-control" placeholder="Calificaci&oacute;n">
-                                            </div> 
+                                            </div>
                                         </div>
                                         <div class="col-8 col-md-3 text-md-right">
                                             <label>Precio:</label>
@@ -194,11 +195,11 @@
                                         <div class="col-18 col-md-9">
                                             <div class="form-group">
                                                 <input id="precio" type="number" step="0.01" class="form-control" placeholder="Precio">
-                                            </div> 
+                                            </div>
                                         </div>
-                            
+
                                     </div>
-                            
+
                           <div class="modal-footer">
                             <!-- <button class="btn btn-default" id="saveInfo">Guardar sin asignar</button> -->
                             <a id="Submit" href="#" class="btn btn-primary btn-sm mr-md-2">Ingresar a Inventario</a>
@@ -218,7 +219,7 @@
         </div>
         <!-- End Top To Bottom-->
 
-        <script src="../Assets/js/jquery-3.4.1.min.js"></script> 
+        <script src="../Assets/js/jquery-3.4.1.min.js"></script>
         <!-- End Chat-->
         <script type="text/javascript">
             $( document ).ready(function() {
@@ -232,7 +233,7 @@
                     var calificacion= $('#calificacion').val();
                     alert(id);
 
-                });   
+                });
                 $('#edit').click(function(){
                     var id=$(this).closest('tr').find('.id').text();
                     var ubicacion=$(this).closest('tr').children('.ubicacion').text();
@@ -265,48 +266,13 @@
 
         </script>
         <!-- jQuery -->
-        <script src="../Assets/js/plugins.min.js"></script>          
+        <script src="../Assets/js/plugins.min.js"></script>
         <script src="../Assets/js/moment.min.js"></script>
         <script src="../Assets/js/fullcalendar.min.js"></script>
         <script src="../Assets/js/fullcalendar.js"></script>
-        <script src="../Assets/js/chartist.js"></script>          
+        <script src="../Assets/js/chartist.js"></script>
         <script src="../Assets/js/common.js"></script>
     </body>
 
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        
