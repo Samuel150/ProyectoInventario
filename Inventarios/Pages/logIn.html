@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -78,20 +82,23 @@
         var request = new XMLHttpRequest();
         var user = document.getElementById("user").value;
         var password = document.getElementById("password").value;
-        request.withCredentials = false;
+        //request.withCredentials = true;
         request.open("Get", "http://skynet.lp.upb.edu:7875/usuario/"+user, true );
 
         request.onload = function (){
             try{
                 var dataUser = JSON.parse(request.responseText.toString());
                 if(dataUser.Contrasena.toString() === password.toString()){
+                    var tipo = dataUser.TipoUsuario;
                     $.ajax({
                         method: 'POST',
                         url: "../Templates/logIn.php",
-                        data: {CI : user, Tipo : dataUser.TipoUsuario},
-                        dataType: "json",
+                        data: {CI : user, Tipo : tipo},
+                        dataType: "json"
                     });
-                    //window.open("index.html", "_self");
+                    var ci = '<?php echo $_SESSION["CI"]; ?>';
+                    console.log(ci);
+                    window.open("index.html", "_self");
                 }else {
                     document.getElementById("alert_data").setAttribute("class","alert alert-danger text-white alert-dismissible fade show");
                     document.getElementById("alert_data").setAttribute("style","display:block;");
@@ -102,9 +109,9 @@
                 document.getElementById("alert_data").setAttribute("style","display:block;");
             }
         };
-        request.setRequestHeader("Authorization", btoa(user+":"+password));
         request.send();
-    });
+        //request.setRequestHeader("Authorization", btoa(user+":"+password));
+        });
 </script>
 <!-- jQuery -->
 <script src="../Assets/js/plugins.min.js"></script>

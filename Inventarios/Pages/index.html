@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -25,7 +29,7 @@
         <div class="wrapper">
             <div id="header-fix" class="header w-100">
                 <nav class="navbar navbar-expand-lg crystal-bg-primary py-0 pl-0 text-white">
-                    <a href="index.html" class="navbar-brand site-logo crystal-bg-secondry mr-0 pt-4 pl-3"><font color="white">INVENTARIOS</font></a>
+                    <a href="../Templates/logOut.php" class="navbar-brand site-logo crystal-bg-secondry mr-0 pt-4 pl-3"><font color="white">INVENTARIOS</font></a>
                     <div class="navbar-header px-3 pt-4 mr-lg-4 crystal-brd-right">
                         <button type="button" id="sidebarCollapse" class="navbar-btn bg-transparent">
                             <span class="navbar-toggler-icon"></span>
@@ -48,7 +52,7 @@
                                 <li><a  href="addProduct.html"><i class="fa fa-plus-square"></i> Insertar Bien</a></li>
                                 <li><a  href="sideMenu.html"><i class="fa fa-edit"></i> Modificar Bien</a></li>
                                 <li><a  href="sideMenu.html"><i class="fa fa-calendar-check-o"></i> Reportes</a></li>
-                                <li><a  href="crearUsuario.html"><i class="fa fa-user"></i> Crear Usuario</a></li>
+                                <li><a id="crear_usuario" style="display: none"  href="crearUsuario.html"><i class="fa fa-user"></i> Crear Usuario</a></li>
 
 
                     </ul>
@@ -87,6 +91,15 @@
 
 
         <!-- End Chat-->
+        <script type="text/javascript">
+            var ci = '<?php echo $_SESSION["CI"];?>';
+            var tipo = '<?php echo $_SESSION["TIPO"];?>';
+            if (tipo.toString() === "1") {
+                document.getElementById("crear_usuario").setAttribute("style", "display:block;");
+            }
+            console.log(ci);
+            console.log(tipo);
+        </script>
 
         <!-- jQuery -->
         <script src="../Assets/js/plugins.min.js"></script>
