@@ -84,12 +84,20 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <th>CI</th>
-                                                    <th>Nombre</th>
-                                                    <th>Entidad</th>
-                                                    <th>Edit</th>
-                                                </tr>
+                                              <?php
+                                              $xml = file_get_contents("http://skynet.lp.upb.edu:7875/usuarios");
+                                              $someArray = json_decode($xml, true);
+                                              foreach ($someArray as $key => $value) {
+                                                echo "<tr>";
+                                                  echo "<td class=\"ci\"> ".$value["CI"]."</td>";
+                                                  echo "<td class=\"nombre\">" .$value["Nombre"]. "</td>";
+                                                  echo "<td class=\"entidad\">".$value["EntidadD"]."</td>";
+                                                  echo "<td><a href=\"#myModal19\" id=\"edit\" role=\"button\" class=\"ti-pencil-alt\" data-toggle=\"modal\"></a></td>";
+                                                  echo "</tr>";
+                                                }
+
+                                                ?>
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -101,6 +109,104 @@
                         </div>
 
                     </div>
+
+                    <div id="myModal19" class="modal fade" data-focus="false" data-easein="rotateInUpRight" data-easeout="rotateOutUpRight" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Modificar usuario</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+                          </div>
+                          <div class="modal-body">
+
+                                    <div class="row">
+                                        <div class="col-8 col-md-3 align-self-center text-md-right">
+                                            <label>CI:</label>
+                                        </div>
+                                        <div class="col-8 col-md-9">
+                                            <div class="form-group">
+                                              <select id="carnet" class="form-control">
+                                                  <?php
+                                                  $xml = file_get_contents("http://skynet.lp.upb.edu:7875/usuarios");
+                                                  $someArray = json_decode($xml, true);
+                                                  foreach ($someArray as $key => $value) {
+                                                      echo "<option value=\"".$value["CI"]."\">".$value["CI"]."</option>";
+                                                  }
+                                                  ?>
+                                              </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-3 text-md-right align-self-center">
+                                            <label>Nombre:</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <div class="form-group">
+                                              <select id="nombre" class="form-control">
+                                              <?php
+                                              $xml = file_get_contents("http://skynet.lp.upb.edu:7875/usuarios");
+                                              $someArray = json_decode($xml, true);
+                                              foreach ($someArray as $key => $value) {
+                                                  echo "<option value=\"".$value["Nombre"]."\">".$value["Nombre"]."</option>";
+                                              }
+                                              ?>
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-3 text-md-right align-self-center">
+                                            <label>Entidad:</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <div class="form-group">
+                                                <select id="entidad" class="form-control">
+                                                    <?php
+                                                    $xml = file_get_contents("http://skynet.lp.upb.edu:7875/entidades");
+                                                    $someArray = json_decode($xml, true);
+                                                    foreach ($someArray as $key => $value) {
+                                                        echo "<option value=\"".$value["IdEntidad"]."\">".$value["EntidadD"]."</option>";
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-3 text-md-right align-self-center">
+                                            <label>Contraseña:</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <div class="form-group">
+                                              <input id="password" type="text" class="form-control" placeholder="Identificador">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-3 text-md-right align-self-center">
+                                            <label>Tipo de usuario:</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <div class="form-group">
+
+                                              <select id ="tipoUsuario" class="form-control">
+                                              <option value="1"> Administrador </option>
+                                              <option value="2"> Regular </option>
+                                              </select>
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+
+                          <div class="modal-footer">
+                            <!-- <button class="btn btn-default" id="saveInfo">Guardar sin asignar</button> -->
+                            <a id="Submit" href="#" class="btn btn-primary btn-sm mr-md-2">Ingresar a Inventario</a>
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+
                 </div>
             </div>
         </div>
@@ -117,21 +223,27 @@
 
         <!-- End Chat-->
         <script type="text/javascript">
-        var wb= XLSX.utils.table_to_book(document.getElementById('data1'),{sheet:"Inventarios Historial"});
+            $( document ).ready(function() {
+                $('#Submit').click(function() {
+                  var nombre= $('#nombre option:selected').val();
+                  var carnet=$('#carnet option:selected').val();
+                  var password=$('#password').val();
+                  var entidad=$('#entidad option:selected').val();
+                  var tipo=$('#tipoUsuario option:selected').val();
+                    var url="http://skynet.lp.upb.edu:7875/usuario/"+carnet;
+                    $.ajax({
+                          type: "PUT",
+                          url: url,
+                          data: {CI:carnet,Nombre:nombre,Contrasena:password,IdEntidad:entidad,TipoUsuario:tipo},
+                        }).done(function(data) {
+                            alert("el bien fue agregado exitosamente");
+                            location.reload();
+                        }).fail(function (data){
+                            alert("Se ingresó un dato incorrecto");
+                        });
+                });
 
-        var wbout= XLSX.write(wb,{bookType:'xlsx',bookSST:true,type:'binary'});
-        function s2ab(s){
-            var buf = new ArrayBuffer(s.length);
-            var view = new Uint8Array(buf);
-            for (var i = 0; i <s.length; i++) {
-                view[i]=s.charCodeAt(i) & 0xFF;
-            }
-            return buf;
-        }
-
-        $("#button").click(function(){
-            saveAs(new Blob([s2ab(wbout)],{type:"application/octet_stream"}),'reporte.xlsx');
-        });
+            });
         </script>
 
         <!-- jQuery -->
