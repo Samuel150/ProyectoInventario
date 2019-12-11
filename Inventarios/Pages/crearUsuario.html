@@ -1,5 +1,4 @@
 
-</<!DOCTYPE html>
 <html lang="en" dir="ltr">
 
 <head>
@@ -67,40 +66,80 @@
                     </div>
 
                     <!-- ACA EMPIEZAN CON SU CONTENIDO-->
-                    <div class="row">
-                        <div class="col-md-12"  style="z-index: 1;">
-                          <img src="../Assets/images/useerLogo.png" class = "rounded mx-auto d-block" width="300">
-                        </div>
-                        <div class="col-12 col-lg-5 m-auto py-5 ">
-                          <form>
-                            <div class="form-row">
-                              <div class="form-group col-md-6">
-                                <label for="inputEmail4">Nombre</label>
-                                  <input type="email" class="form-control" id="nombre" placeholder="Nombre">
-                                </div>
-                                <div class="form-group col-md-6">
-                                  <label for="inputPassword4">Carnet de Identidad</label>
-                                  <input type="password" class="form-control" id="carnet" placeholder="Carnet de Identidad">
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label for="inputAddress">Contraseña</label>
-                                <input type="text" class="form-control" id="password" placeholder="Contraseña">
-                              </div>
-                              <div class="form-group">
-                                <label for="inputAddress2">Confirmar Contraseña</label>
-                                <input type="text" class="form-control" id="passwordConf" placeholder="Confirmar Contraseña">
-                              </div>
-                              <div class="form-group">
-                                <label for="inputAddress2">Entidad</label>
-                                <input type="text" class="form-control" id="entidad" placeholder="Entidad">
-                              </div>
+                    <div class="content">
+                        <div class="col-12 col-xl-12">
+                            <div class="card crystal-border-light crystal-shadow">
+                                <div class="card-body">
+                                    <h6 class="heading-title pl-3 position-relative">Crear Usuario</h6>
+                                    <div class="row">
+                                        <div class="col-8 col-md-3 align-self-center text-md-right">
+                                            <label>Nombre:</label>
+                                        </div>
+                                        <div class="col-8 col-md-9">
+                                            <div class="form-group">
+                                                <input id="nombre" type="text" class="form-control" placeholder="Nombre">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-3 text-md-right align-self-center">
+                                            <label>Carnet de identidad:</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <div class="form-group">
+                                                <input id="carnet" type="number" class="form-control" placeholder="CI">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-3 text-md-right align-self-center">
+                                            <label>Contraseña:</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <div class="form-group">
+                                                <input id="password" type="password" class="form-control" placeholder="Contraseña">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-3 text-md-right align-self-center">
+                                            <label>Confirmar Contraseña:</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <div class="form-group">
+                                                <input id="passwordConf" type="password" class="form-control" placeholder="Confirmar Contraseña">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-3 text-md-right align-self-center">
+                                            <label>Entidad:</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <div class="form-group">
+                                                <select id="entidad" class="form-control">
+                                                   <?php
+                                                    $xml = file_get_contents("http://skynet.lp.upb.edu:7875/entidades");
+                                                    $someArray = json_decode($xml, true);
+                                                    foreach ($someArray as $key => $value) {
+                                                        echo "<option value=\"".$value["IdEntidad"]."\">".$value["EntidadD"]."</option>";
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
 
-                              <div class="form-group">
+                                        <div class="col-8 col-md-3 align-self-center text-md-right">
+                                            <label>Tipo de usuario:</label>
+                                        </div>
+                                        <div class="col-8 col-md-9">
+                                            <div class="form-group">
+                                              <select id ="tipoUsuario" class="form-control">
+                                              <option value="1"> Administrador </option>
+                                              <option value="2"> Regular </option>
+                                              </select>
+                                            </div>
+                                        </div>
 
-    </div>
-    <button type="submit" class="btn btn-primary">Crear Usuario</button>
-  </form>
+
+                                        <div class="col-12 col-md-7">
+                                             <a id="Submit" href="#" class="btn btn-primary btn-sm mr-md-2">Crear usuario</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -115,9 +154,29 @@
         </div>
         <!-- End Top To Bottom-->
 
-
+        <script src="../Assets/js/jquery-3.4.1.min.js"></script>
         <!-- End Chat-->
+        <script type="text/javascript">
+            $( document ).ready(function() {
+                $('#Submit').click(function() {
+                    var nombre= $('#nombre').val();
+                    var carnet=$('#carnet').val();
+                    var password=$('#password').val();
+                    var entidad=$('#entidad option:selected').val();
+                    var tipo=$('#tipoUsuario option:selected').val();
+                    $.ajax({
+                          type: "POST",
+                          url: "http://skynet.lp.upb.edu:7875/usuarios",
+                          data: {CI:carnet,Nombre:nombre,Contrasena:password,IdEntidad:entidad,TipoUsuario:tipo},
+                        }).done(function(data) {
+                            alert("el usuario fue agregado exitosamente");
+                            location.reload();
+                        }).fail(function (data){
+                        });
 
+                });
+            });
+        </script>
 
         <!-- jQuery -->
         <script src="../Assets/js/plugins.min.js"></script>
