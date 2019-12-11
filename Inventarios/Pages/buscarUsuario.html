@@ -198,7 +198,8 @@
 
                           <div class="modal-footer">
                             <!-- <button class="btn btn-default" id="saveInfo">Guardar sin asignar</button> -->
-                            <a id="Submit" href="#" class="btn btn-primary btn-sm mr-md-2">Ingresar a Inventario</a>
+                            <a id="Submit" href="#" class="btn btn-primary btn-sm mr-md-2">Editar usuario</a>
+                            <a id="Borrar" href="#" class="btn btn-danger btn-sm mr-md-2">Borrar usuario</a>
                           </div>
                           </div>
                         </div>
@@ -240,6 +241,19 @@
                             location.reload();
                         }).fail(function (data){
                             alert("Se ingresó un dato incorrecto");
+                        });
+                });
+                $('#Borrar').click(function() {
+                  var carnet=$('#carnet option:selected').val();
+                    var url="http://skynet.lp.upb.edu:7875/usuario/"+carnet;
+                    $.ajax({
+                          type: "DELETE",
+                          url: url,
+                        }).done(function(data) {
+                            alert("El ususuario fue borrado exitosamente");
+                            location.reload();
+                        }).fail(function (data){
+                            alert("No se puedo eliminar al usario");
                         });
                 });
 
