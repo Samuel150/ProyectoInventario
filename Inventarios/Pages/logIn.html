@@ -86,16 +86,12 @@
                 var dataUser = JSON.parse(request.responseText.toString());
                 if(dataUser.Contrasena.toString() === password.toString()){
                     $.ajax({
-                       type: "POST",
+                        method: 'POST',
                         url: "../Templates/logIn.php",
                         data: {CI : user, Tipo : dataUser.TipoUsuario},
                         dataType: "json",
                     });
-                    var ci = "<?php echo $_SESSION['CI'];?>";
-                    console.log(ci);
-
-
-                    // window.open("index.html", "_self");
+                    //window.open("index.html", "_self");
                 }else {
                     document.getElementById("alert_data").setAttribute("class","alert alert-danger text-white alert-dismissible fade show");
                     document.getElementById("alert_data").setAttribute("style","display:block;");
