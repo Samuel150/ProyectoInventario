@@ -79,9 +79,48 @@
 
                     <!-- ACA EMPIEZAN CON SU CONTENIDO-->
 
-                    <div class="content">
-
-
+                    <div class="col-md-6">
+                        <div class="card crystal-border-light crystal-shadow">
+                                <div class="position-relative h-200">
+                                    <div class="background-image-maker rounded-top" style="background-image: url(&quot;../Assets/images/inventarios.jfif&quot;);"></div>
+                                    <div class="holder-image">
+                                        <img src="../Assets/images/inventarios.jfif" alt="" class="img-fluid d-none">
+                                    </div>
+                                    <div class="card-body position-relative"></div>
+                                </div>
+                                <div class="position-relative">
+                                    <div class="card-body py-4">
+                                        <div class="media crystal-mt-50 mb-3">
+                                            <div class="d-flex mr-3"><img src="../Assets/images/user.png" alt="" class="img-fluid rounded" height="120" width="120"></div>
+                                            <div class="media-body align-self-end">
+                                                <a href="javascript:;"><h5 class="mb-2">Samuel Huanca</h5></a>
+                                                <span><?php if($_SESSION['TIPO']==2){echo "Usuario Regular";}else{echo "Administrador";}?> / Inventarios</span>
+                                            </div>
+                                        </div>
+                                        <?php if($_SESSION['TIPO']==2){echo "Un usuario regular es encargado de controlar los bienes";}else{echo "Como administrador es encargado del manejo de usuarios y bienes del municipio.";}?> 
+                                        
+                                    </div>
+                                    <div class="crystal-divider"></div>
+                                    <ul class="list-inline mb-0 user-details text-center">
+                                        <li class="list-inline-item py-2">
+                                            <span>Responsable de : 48 bienes</span>
+                                        </li>
+                                        
+                            
+                                    </ul>
+                                </div>
+                            </div>
+                        
+                    </div><!-- user profile -->
+                    <div class="col-md-6">
+                        <div class="card crystal-border-light crystal-shadow">
+                            <div class="card-body">
+                                <h6 class="heading-title pl-3 position-relative">Bienes a tu disposici&oacute;n</h6>
+                                <div id="morris-donut-chart1">
+                                    
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -94,16 +133,30 @@
         </div>
         <!-- End Top To Bottom-->
 
-
+        
         <!-- End Chat-->
+        
 
         <!-- jQuery -->
-        <script src="../Assets/js/plugins.min.js"></script>
+        <script src="../Assets/js/plugins.min.js"></script>          
         <script src="../Assets/js/moment.min.js"></script>
         <script src="../Assets/js/fullcalendar.min.js"></script>
         <script src="../Assets/js/fullcalendar.js"></script>
-        <script src="../Assets/js/chartist.js"></script>
+        <script src="../Assets/js/chartist.js"></script>          
         <script src="../Assets/js/common.js"></script>
+        <script type="text/javascript">
+           
+                Morris.Donut({
+                    element: 'morris-donut-chart1',
+                    data: [{
+                            label: "Bienes disponibles",
+                            value: 48,
+                        }],
+                    resize: true,
+                    colors: ['#0000b3']
+                });
+            
+        </script>
     </body>
 
 
