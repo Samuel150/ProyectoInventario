@@ -1,7 +1,3 @@
-<?php
-    session_start();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -82,7 +78,6 @@
         var request = new XMLHttpRequest();
         var user = document.getElementById("user").value;
         var password = document.getElementById("password").value;
-        //request.withCredentials = true;
         request.open("Get", "http://skynet.lp.upb.edu:7875/usuario/"+user, true );
 
         request.onload = function (){
@@ -95,9 +90,9 @@
                         url: "../Templates/logIn.php",
                         data: {CI : user, Tipo : tipo},
                         dataType: "json"
+                    }).done(function (data) {
+                        alert(data.msg);
                     });
-                    var ci = '<?php echo $_SESSION["CI"]; ?>';
-                    console.log(ci);
                     window.open("index.html", "_self");
                 }else {
                     document.getElementById("alert_data").setAttribute("class","alert alert-danger text-white alert-dismissible fade show");
@@ -110,7 +105,6 @@
             }
         };
         request.send();
-        //request.setRequestHeader("Authorization", btoa(user+":"+password));
         });
 </script>
 <!-- jQuery -->

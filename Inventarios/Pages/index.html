@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    require("../Templates/loadPage.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -51,8 +51,8 @@
                                 <li class="active"><a class="active" href="index.html"><i class="fa fa-home"></i> P&aacute;gina principal</a></li>
                                 <li><a  href="addProduct.html"><i class="fa fa-plus-square"></i> Insertar Bien</a></li>
                                 <li><a  href="sideMenu.html"><i class="fa fa-edit"></i> Modificar Bien</a></li>
-                                <li><a  href="sideMenu.html"><i class="fa fa-calendar-check-o"></i> Reportes</a></li>
-                                <li><a id="crear_usuario" style="display: none"  href="crearUsuario.html"><i class="fa fa-user"></i> Crear Usuario</a></li>
+                                <li><a href="sideMenu.html"><i  class="fa fa-calendar-check-o"></i> Reportes</a></li>
+                                <li <?php if($_SESSION['TIPO']==2){echo "style=\"display:none;\"";}else{echo "style=\"display:block;\"";}?> ><a href="crearUsuario.html"><i class="fa fa-user"></i> Crear Usuario</a></li>
 
 
                     </ul>
@@ -91,15 +91,6 @@
 
 
         <!-- End Chat-->
-        <script type="text/javascript">
-            var ci = '<?php echo $_SESSION["CI"];?>';
-            var tipo = '<?php echo $_SESSION["TIPO"];?>';
-            if (tipo.toString() === "1") {
-                document.getElementById("crear_usuario").setAttribute("style", "display:block;");
-            }
-            console.log(ci);
-            console.log(tipo);
-        </script>
 
         <!-- jQuery -->
         <script src="../Assets/js/plugins.min.js"></script>
