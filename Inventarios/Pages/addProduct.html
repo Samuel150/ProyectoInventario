@@ -44,7 +44,7 @@
                                 <li class="my-4 nav-title position-relative"><span class="text-white mb-0">Menu Inventarios</span></li>
                                 <li><a href="index.html"><i class="fa fa-home"></i> P&aacute;gina principal</a></li>
                                 <li class="active"><a class="active" href="addProduct.html"><i class="fa fa-plus-square"></i> Insertar Bien</a></li>
-                                <li><a  href="sideMenu.html"><i class="fa fa-edit"></i> Modificar Bien</a></li>
+                                <li><a  href="modifyProduct.html"><i class="fa fa-edit"></i> Modificar Bien</a></li>
                                 <li><a  href="sideMenu.html"><i class="fa fa-calendar-check-o"></i> Reportes</a></li>
                                 <li><a  href="sideMenu.html"><i class="fa fa-user"></i> Crear Usuario</a></li>
                        
@@ -87,11 +87,13 @@
                                         <div class="col-12 col-md-9">
                                             <div class="form-group">
                                                 <select id="ubicacion" class="form-control">
-                                                    <option>---Select One---</option>
-                                                    <option> Option 1 </option>
-                                                    <option> Option 2 </option>
-                                                    <option> Option 3 </option>
-                                                    <option> Option 4 </option>
+                                                    <?php
+                                                    $xml = file_get_contents("http://skynet.lp.upb.edu:7875/ubicaciones");
+                                                    $someArray = json_decode($xml, true);
+                                                    foreach ($someArray as $key => $value) {
+                                                        echo "<option value=\"".$value["IdUbicacion"]."\">".$value["UbicacionD"]."</option>";
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -101,11 +103,13 @@
                                         <div class="col-12 col-md-9">
                                             <div class="form-group">
                                                 <select id="responsable" class="form-control">
-                                                    <option>---Select One---</option>
-                                                    <option> Option 1 </option>
-                                                    <option> Option 2 </option>
-                                                    <option> Option 3 </option>
-                                                    <option> Option 4 </option>
+                                                    <?php
+                                                    $xml = file_get_contents("http://skynet.lp.upb.edu:7875/usuarios");
+                                                    $someArray = json_decode($xml, true);
+                                                    foreach ($someArray as $key => $value) {
+                                                        echo "<option value=\"".$value["CI"]."\">".$value["CI"]." ".$value["Nombre"]."</option>";
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -115,11 +119,13 @@
                                         <div class="col-12 col-md-9">
                                             <div class="form-group">
                                                 <select id="estado" class="form-control">
-                                                    <option>---Select One---</option>
-                                                    <option> Option 1 </option>
-                                                    <option> Option 2 </option>
-                                                    <option> Option 3 </option>
-                                                    <option> Option 4 </option>
+                                                    <?php
+                                                    $xml = file_get_contents("http://skynet.lp.upb.edu:7875/estados");
+                                                    $someArray = json_decode($xml, true);
+                                                    foreach ($someArray as $key => $value) {
+                                                        echo "<option value=\"".$value["IdEstado"]."\">".$value["EstadoD"]."</option>";
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -129,11 +135,13 @@
                                         <div class="col-12 col-md-9">
                                             <div class="form-group">
                                                 <select id="clasificacion" class="form-control">   
-                                                    <option>---Select One---</option>
-                                                    <option> Option 1 </option>
-                                                    <option> Option 2 </option>
-                                                    <option> Option 3 </option>
-                                                    <option> Option 4 </option>
+                                                   <?php
+                                                    $xml = file_get_contents("http://skynet.lp.upb.edu:7875/clasificaciones");
+                                                    $someArray = json_decode($xml, true);
+                                                    foreach ($someArray as $key => $value) {
+                                                        echo "<option value=\"".$value["IdClasificacion"]."\">".$value["ClasificacionD"]."</option>";
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -187,7 +195,16 @@
                     var clasificacion=$('#clasificacion option:selected').val();
                     var precio= $('#precio').val();
                     var calificacion= $('#calificacion').val();
-                    alert(id);
+                    $.ajax({
+                          type: "POST",
+                          url: "http://skynet.lp.upb.edu:7875/bienes",
+                          data: {IdBien:id,IdUbicacion:ubicacion,IdClasificacion:clasificacion,IdEstado:estado,Responsable:responsable,Calificacion:calificacion,Precio:precio},
+                        }).done(function(data) {
+                            alert("el bien fue agregado exitosamente");
+                            location.reload();
+                        }).fail(function (data){
+                        });
+                
 
                 });   
 
