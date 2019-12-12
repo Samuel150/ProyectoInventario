@@ -102,13 +102,7 @@
                                         
                                     </div>
                                     <div class="crystal-divider"></div>
-                                    <ul class="list-inline mb-0 user-details text-center">
-                                        <li class="list-inline-item py-2">
-                                            <span>Responsable de : 48 bienes</span>
-                                        </li>
-                                        
-                            
-                                    </ul>
+                                    
                                 </div>
                             </div>
                         
@@ -123,6 +117,49 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                            <div class="card crystal-border-light crystal-shadow">
+                                <div class="card-body">
+                                    <h6 class="heading-title pl-3 position-relative"> Tus Bienes </h6>
+                                    <div class="table-responsive">
+                                        <table class="table mb-0 mt-4 table-condensed">
+                                            <thead class="crystal-dark font-weight-bold">
+                                                <tr>
+                                                    <th > IdBien </th>
+                                                    <th > Ubicacion </th>
+                                                    <th > Clasificacion </th>
+                                                    <th > Estado </th>
+                                                    <th > Responsable </th>
+                                                    <th > Calificacion </th>
+                                                    <th > Precio </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+
+                                                $xml = file_get_contents("http://skynet.lp.upb.edu:7875/bienes/responsable/"+$_SESSION['CI']);
+                                                $someArray = json_decode($xml, true);
+                                                foreach ($someArray as $key => $value) {
+
+                                                    echo "<tr>";
+                                                    echo "<td class=\"id\">".$value["IdBien"]."</td>";
+                                                    echo "<td class=\"ubicacion\">".$value["UbicacionD"]."</td>";
+                                                    echo "<td class=\"clasificacion\">".$value["ClasificacionD"]."</td>";
+                                                    echo "<td class=\"estado\">".$value["EstadoD"]."</td>";
+                                                    echo "<td class=\"responsable\">".$value["Responsable"]."</td>";
+                                                    echo "<td class=\"calificacion\">".$value["Calificacion"]."</td>";
+                                                    echo "<td class=\"precio\">".$value["Precio"]." </td>";
+                                                    echo "</tr>"; 
+                                                }
+                                                
+                                                ?>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -139,6 +176,7 @@
         
 
         <!-- jQuery -->
+        <script src="../Assets/js/jquery-3.4.1.min.js"></script> 
         <script src="../Assets/js/plugins.min.js"></script>          
         <script src="../Assets/js/moment.min.js"></script>
         <script src="../Assets/js/fullcalendar.min.js"></script>
@@ -146,16 +184,18 @@
         <script src="../Assets/js/chartist.js"></script>          
         <script src="../Assets/js/common.js"></script>
         <script type="text/javascript">
-           
+            $( document ).ready(function() {
+                var nFilas = $("#mi-tabla tr").length;
                 Morris.Donut({
                     element: 'morris-donut-chart1',
                     data: [{
                             label: "Bienes disponibles",
-                            value: 48,
+                            value: nFilas,
                         }],
                     resize: true,
                     colors: ['#0000b3']
                 });
+            });
             
         </script>
     </body>
