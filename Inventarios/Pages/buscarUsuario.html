@@ -174,7 +174,7 @@
                                         </div>
                                         <div class="col-12 col-md-9">
                                             <div class="form-group">
-                                              <input id="password" type="text" class="form-control" placeholder="Identificador">
+                                              <input id="password" type="text" class="form-control" placeholder="Contraseña">
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-3 text-md-right align-self-center">
@@ -228,7 +228,7 @@
                 $('#Submit').click(function() {
                   var nombre= $('#nombre option:selected').val();
                   var carnet=$('#carnet option:selected').val();
-                  var password=$('#password').val();
+                  var password=btoa($('#password').val());
                   var entidad=$('#entidad option:selected').val();
                   var tipo=$('#tipoUsuario option:selected').val();
                     var url="http://skynet.lp.upb.edu:7875/usuario/"+carnet;

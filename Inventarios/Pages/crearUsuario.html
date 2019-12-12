@@ -97,14 +97,7 @@
                                                 <input id="password" type="password" class="form-control" placeholder="Contraseña">
                                             </div>
                                         </div>
-                                        <div class="col-12 col-md-3 text-md-right align-self-center">
-                                            <label>Confirmar Contraseña:</label>
-                                        </div>
-                                        <div class="col-12 col-md-9">
-                                            <div class="form-group">
-                                                <input id="passwordConf" type="password" class="form-control" placeholder="Confirmar Contraseña">
-                                            </div>
-                                        </div>
+                                        
                                         <div class="col-12 col-md-3 text-md-right align-self-center">
                                             <label>Entidad:</label>
                                         </div>
@@ -162,7 +155,7 @@
                 $('#Submit').click(function() {
                     var nombre= $('#nombre').val();
                     var carnet=$('#carnet').val();
-                    var password=$('#password').val();
+                    var password=btoa($('#password').val());
                     var entidad=$('#entidad option:selected').val();
                     var tipo=$('#tipoUsuario option:selected').val();
                     $.ajax({
