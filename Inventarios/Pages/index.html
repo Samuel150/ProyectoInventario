@@ -122,33 +122,31 @@
                                 <div class="card-body">
                                     <h6 class="heading-title pl-3 position-relative"> Tus Bienes </h6>
                                     <div class="table-responsive">
-                                        <table class="table mb-0 mt-4 table-condensed">
-                                            <thead class="crystal-dark font-weight-bold">
+                                        <table id="data1" class="table table-striped">
+                                            <thead>
                                                 <tr>
-                                                    <th > IdBien </th>
-                                                    <th > Ubicacion </th>
-                                                    <th > Clasificacion </th>
-                                                    <th > Estado </th>
-                                                    <th > Responsable </th>
-                                                    <th > Calificacion </th>
-                                                    <th > Precio </th>
+                                                    <th>IdBien</th>
+                                                    <th>Ubicacion</th>
+                                                    <th>Clasificacion</th>
+                                                    <th>Estado</th>
+                                                    <th>Responsable</th>
+                                                    <th>Calificacion</th>
+                                                    <th>Precio</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
-
-                                                $xml = file_get_contents("http://skynet.lp.upb.edu:7875/bienes/responsable/"+$_SESSION['CI']);
-                                                $someArray = json_decode($xml, true);
+                                                $x=file_get_contents("http://skynet.lp.upb.edu:7875/bienes/responsable/".$_SESSION['CI']);
+                                                $someArray = json_decode($x, true);
                                                 foreach ($someArray as $key => $value) {
-
                                                     echo "<tr>";
-                                                    echo "<td class=\"id\">".$value["IdBien"]."</td>";
-                                                    echo "<td class=\"ubicacion\">".$value["UbicacionD"]."</td>";
-                                                    echo "<td class=\"clasificacion\">".$value["ClasificacionD"]."</td>";
-                                                    echo "<td class=\"estado\">".$value["EstadoD"]."</td>";
-                                                    echo "<td class=\"responsable\">".$value["Responsable"]."</td>";
-                                                    echo "<td class=\"calificacion\">".$value["Calificacion"]."</td>";
-                                                    echo "<td class=\"precio\">".$value["Precio"]." </td>";
+                                                    echo "<td>".$value["IdBien"]."</td>";
+                                                    echo "<td>".$value["UbicacionD"]."</td>";
+                                                    echo "<td>".$value["ClasificacionD"]."</td>";
+                                                    echo "<td>".$value["EstadoD"]."</td>";
+                                                    echo "<td>".$value["Responsable"]."</td>";
+                                                    echo "<td>".$value["Calificacion"]."</td>";
+                                                    echo "<td>".$value["Precio"]." </td>";
                                                     echo "</tr>"; 
                                                 }
                                                 
@@ -185,12 +183,12 @@
         <script src="../Assets/js/common.js"></script>
         <script type="text/javascript">
             $( document ).ready(function() {
-                var nFilas = $("#mi-tabla tr").length;
+                var rowCount = $('#data1 tr').length;
                 Morris.Donut({
                     element: 'morris-donut-chart1',
                     data: [{
                             label: "Bienes disponibles",
-                            value: nFilas,
+                            value: rowCount-1,
                         }],
                     resize: true,
                     colors: ['#0000b3']
