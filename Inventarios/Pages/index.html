@@ -37,6 +37,9 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                     </div>
+                    <div class="form-group mb-0">
+                      <a href="../Templates/logOut.php" class="btn btn-secondary btn-default crystal-rounded-circle-50 pull-right">Cerrar Sesi&oacute;n</a>
+                    </div>
 
                 </nav>
             </div>
@@ -50,13 +53,11 @@
                                 <li class="my-4 nav-title position-relative"><span class="text-white mb-0">Menu Inventarios</span></li>
                                 <li class="active"><a class="active" href="index.html"><i class="fa fa-home"></i> P&aacute;gina principal</a></li>
                                 <li><a  href="addProduct.html"><i class="fa fa-plus-square"></i> Insertar Bien</a></li>
-        
-                           
-                                <li <?php if($_SESSION['TIPO']==2){echo "style=\"display:none;\"";}else{echo "style=\"display:block;\"";}?> ><a href="crearUsuario.html"><i class="fa fa-user"></i> Crear Usuario</a></li>
                                 <li><a  href="modifyProduct.html"><i class="fa fa-edit"></i> Modificar Bien</a></li>
                                 <li><a  href="reporte.html"><i class="fa fa-calendar-check-o"></i> Reportes</a></li>
-                
-                                <li><a  href="buscarUsuario.html"><i class="fa fa-search"></i> Buscar Usuario</a></li>
+                                <li <?php if($_SESSION['TIPO']==2){echo "style=\"display:none;\"";}else{echo "style=\"display:block;\"";}?> ><a href="crearUsuario.html"><i class="fa fa-user"></i> Crear Usuario</a></li>
+                                <li <?php if($_SESSION['TIPO']==2){echo "style=\"display:none;\"";}else{echo "style=\"display:block;\"";}?>><a href="buscarUsuario.html"><i class="fa fa-search"></i> Buscar Usuario</a></li>
+                               
 
 
 
@@ -79,10 +80,84 @@
 
                     <!-- ACA EMPIEZAN CON SU CONTENIDO-->
 
-                    <div class="content">
-
-
+                    <div class="col-md-6">
+                        <div class="card crystal-border-light crystal-shadow">
+                                <div class="position-relative h-200">
+                                    <div class="background-image-maker rounded-top" style="background-image: url(&quot;../Assets/images/inventarios.jfif&quot;);"></div>
+                                    <div class="holder-image">
+                                        <img src="../Assets/images/inventarios.jfif" alt="" class="img-fluid d-none">
+                                    </div>
+                                    <div class="card-body position-relative"></div>
+                                </div>
+                                <div class="position-relative">
+                                    <div class="card-body py-4">
+                                        <div class="media crystal-mt-50 mb-3">
+                                            <div class="d-flex mr-3"><img src="../Assets/images/user.png" alt="" class="img-fluid rounded" height="120" width="120"></div>
+                                            <div class="media-body align-self-end">
+                                                <a href="javascript:;"><h5 class="mb-2">Samuel Huanca</h5></a>
+                                                <span><?php if($_SESSION['TIPO']==2){echo "Usuario Regular";}else{echo "Administrador";}?> / Inventarios</span>
+                                            </div>
+                                        </div>
+                                        <?php if($_SESSION['TIPO']==2){echo "Un usuario regular es encargado de controlar los bienes";}else{echo "Como administrador es encargado del manejo de usuarios y bienes del municipio.";}?> 
+                                        
+                                    </div>
+                                    <div class="crystal-divider"></div>
+                                    
+                                </div>
+                            </div>
+                        
+                    </div><!-- user profile -->
+                    <div class="col-md-6">
+                        <div class="card crystal-border-light crystal-shadow">
+                            <div class="card-body">
+                                <h6 class="heading-title pl-3 position-relative">Bienes a tu disposici&oacute;n</h6>
+                                <div id="morris-donut-chart1">
+                                    
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="col-md-6">
+                            <div class="card crystal-border-light crystal-shadow">
+                                <div class="card-body">
+                                    <h6 class="heading-title pl-3 position-relative"> Tus Bienes </h6>
+                                    <div class="table-responsive">
+                                        <table id="data1" class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>IdBien</th>
+                                                    <th>Ubicacion</th>
+                                                    <th>Clasificacion</th>
+                                                    <th>Estado</th>
+                                                    <th>Responsable</th>
+                                                    <th>Calificacion</th>
+                                                    <th>Precio</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $x=file_get_contents("http://skynet.lp.upb.edu:7875/bienes/responsable/".$_SESSION['CI']);
+                                                $someArray = json_decode($x, true);
+                                                foreach ($someArray as $key => $value) {
+                                                    echo "<tr>";
+                                                    echo "<td>".$value["IdBien"]."</td>";
+                                                    echo "<td>".$value["UbicacionD"]."</td>";
+                                                    echo "<td>".$value["ClasificacionD"]."</td>";
+                                                    echo "<td>".$value["EstadoD"]."</td>";
+                                                    echo "<td>".$value["Responsable"]."</td>";
+                                                    echo "<td>".$value["Calificacion"]."</td>";
+                                                    echo "<td>".$value["Precio"]." </td>";
+                                                    echo "</tr>"; 
+                                                }
+                                                
+                                                ?>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -94,16 +169,33 @@
         </div>
         <!-- End Top To Bottom-->
 
-
+        
         <!-- End Chat-->
+        
 
         <!-- jQuery -->
-        <script src="../Assets/js/plugins.min.js"></script>
+        <script src="../Assets/js/jquery-3.4.1.min.js"></script> 
+        <script src="../Assets/js/plugins.min.js"></script>          
         <script src="../Assets/js/moment.min.js"></script>
         <script src="../Assets/js/fullcalendar.min.js"></script>
         <script src="../Assets/js/fullcalendar.js"></script>
-        <script src="../Assets/js/chartist.js"></script>
+        <script src="../Assets/js/chartist.js"></script>          
         <script src="../Assets/js/common.js"></script>
+        <script type="text/javascript">
+            $( document ).ready(function() {
+                var rowCount = $('#data1 tr').length;
+                Morris.Donut({
+                    element: 'morris-donut-chart1',
+                    data: [{
+                            label: "Bienes disponibles",
+                            value: rowCount-1,
+                        }],
+                    resize: true,
+                    colors: ['#0000b3']
+                });
+            });
+            
+        </script>
     </body>
 
 

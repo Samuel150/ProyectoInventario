@@ -85,6 +85,7 @@
                 var dataUser = JSON.parse(request.responseText.toString());
                 if(atob(dataUser.Contrasena).toString() === password.toString()){
                     var tipo = dataUser.TipoUsuario;
+                    var nombre= dataUser.Nombre;
                     $.ajax({
                         method: 'POST',
                         url: "../Templates/logIn.php",
