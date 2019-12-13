@@ -255,26 +255,45 @@
                     var precio= $('#precio').val();
                     var calificacion= $('#calificacion').val();
                     var url="http://skynet.lp.upb.edu:7875/bien/"+id;
+                    var date= new Date();
+                    var fecha=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
                     $.ajax({
                           type: "PUT",
                           url: url,
-                          data: {IdUbicacion:ubicacion,IdClasificacion:clasificacion,IdEstado:estado,Responsable:responsable,Calificacion:calificacion,Precio:precio},
+                          dataType: 'json',
+                          contentType: "application/json",
+                          data: JSON.stringify({IdUbicacion:ubicacion,IdClasificacion:clasificacion,IdEstado:estado,Responsable:responsable,Calificacion:calificacion,Precio:precio}),
                         }).done(function(data) {
-                            alert("el bien fue agregado exitosamente");
-                            location.reload();
+                           
+                            $.ajax({
+                              type: "POST",
+                              url: "http://skynet.lp.upb.edu:7875/transacciones",
+                              dataType: 'json',
+                              contentType: "application/json",
+                              data: JSON.stringify({IdBien:id,IdUsuario:responsable,FechaTransaccion:fecha}),
+                            }).done(function(data) {
+                                 alert("el bien fue agregado exitosamente");
+                                location.reload();
+                            }).fail(function (data){
+                                alert("hubo un problema en el servidor");
+                            });
+                                location.reload();
                         }).fail(function (data){
                             alert("Se ingresó un dato incorrecto");
                         });
 
+
+
                 });   
-                $('#edit').click(function(){
-                    var id=$(this).closest('tr').find('.id').text();
-                    var ubicacion=$(this).closest('tr').children('.ubicacion').text();
-                    var responsable=$(this).closest('tr').children('.responsable').text();
-                    var estado=$(this).closest('tr').children('.estado').text();
-                    var clasificacion=$(this).closest('tr').children('.clasificacion').text();
-                    var calificacion=$(this).closest('tr').children('.calificacion').text();
-                    var precio=$(this).closest('tr').children('.precio').text();
+                $('#data1').on('click','.ti-pencil-alt', function(event){
+                    var id=$(this).closest('tr').children('td.id').text();
+                    console.log(id);
+                    var ubicacion=$(this).closest('tr').children('td.ubicacion').text();
+                    var responsable=$(this).closest('tr').children('td.responsable').text();
+                    var estado=$(this).closest('tr').children('td.estado').text();
+                    var clasificacion=$(this).closest('tr').children('td.clasificacion').text();
+                    var calificacion=$(this).closest('tr').children('td.calificacion').text();
+                    var precio=$(this).closest('tr').children('td.precio').text();
                     console.log(precio);
                     $('#id').val(id);
                     $("#ubicacion option").filter(function() {

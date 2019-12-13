@@ -204,7 +204,9 @@
                     $.ajax({
                           type: "POST",
                           url: "http://skynet.lp.upb.edu:7875/bienes",
-                          data: {IdBien:id,IdUbicacion:ubicacion,IdClasificacion:clasificacion,IdEstado:estado,Responsable:responsable,Calificacion:calificacion,Precio:precio},
+                          dataType: 'json',
+                          contentType: "application/json",
+                          data: JSON.stringify({IdBien:id,IdUbicacion:ubicacion,IdClasificacion:clasificacion,IdEstado:estado,Responsable:responsable,Calificacion:calificacion,Precio:precio}),
                         }).done(function(data) {
                             alert("el bien fue agregado exitosamente");
                             location.reload();

@@ -89,10 +89,12 @@
                     $.ajax({
                         method: 'POST',
                         url: "../Templates/logIn.php",
-                        data: {CI : user,Contrasena: password, Tipo : tipo,Nombre:nombre},
+                        dataType: 'json',
+                        contentType: "application/json",
+                        data: JSON.stringify({CI : user,Contrasena: password, Tipo : tipo,Nombre:nombre}),
                         dataType: "json"
                     }).done(function (data) {
-                        //alert(data.msg);
+                        alert("Bienvenido");
                     });
                     window.open("index.html", "_self");
                 }else {

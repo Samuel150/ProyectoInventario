@@ -133,15 +133,8 @@
                                         </div>
                                         <div class="col-8 col-md-9">
                                             <div class="form-group">
-                                              <select id="carnet" class="form-control">
-                                                  <?php
-                                                  $xml = file_get_contents("http://skynet.lp.upb.edu:7875/usuarios");
-                                                  $someArray = json_decode($xml, true);
-                                                  foreach ($someArray as $key => $value) {
-                                                      echo "<option value=\"".$value["CI"]."\">".$value["CI"]."</option>";
-                                                  }
-                                                  ?>
-                                              </select>
+                                               <input id="carnet" type="text" class="form-control" placeholder="CI">
+
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-3 text-md-right align-self-center">
@@ -235,7 +228,9 @@
                     $.ajax({
                           type: "PUT",
                           url: url,
-                          data: {CI:carnet,Nombre:nombre,Contrasena:password,IdEntidad:entidad,TipoUsuario:tipo},
+                          dataType: 'json',
+                          contentType: "application/json",
+                          data: JSON.stringify({CI:carnet,Nombre:nombre,Contrasena:password,IdEntidad:entidad,TipoUsuario:tipo}),
                         }).done(function(data) {
                             alert("El ususuario fue editado exitosamente");
                             location.reload();
@@ -256,6 +251,26 @@
                             alert("No se puedo eliminar al usario");
                         });
                 });
+
+                  $('#data1').on('click','.ti-pencil-alt', function(event){
+                    var nombre=$(this).closest('tr').children('td.nombre').text();
+                    var carnet=$(this).closest('tr').children('td.ci').text();
+                    var password=$(this).closest('tr').children('td.password').text();
+                    var entidad=$(this).closest('tr').children('td.entidad').text();
+                    var tipo=$(this).closest('tr').children('td.tipo').text();
+                    $('#carnet').val(carnet);
+                    $("#entidad option").filter(function() {
+                      return $(this).text() == entidad;
+                    }).attr('selected', 'selected');
+                    $("#tipo option").filter(function() {
+                      return $(this).text() == tipo;
+                    }).attr('selected', 'selected');
+                    $('#nombre').val(nombre);
+                
+                });
+
+
+
             });
         </script>
 

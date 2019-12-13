@@ -169,7 +169,9 @@
                     $.ajax({
                           type: "POST",
                           url: "http://skynet.lp.upb.edu:7875/usuarios",
-                          data: {CI:carnet,Nombre:nombre,Contrasena:password,IdEntidad:entidad,TipoUsuario:tipo},
+                          dataType: 'json',
+                          contentType: "application/json",
+                          data: JSON.stringify({CI:carnet,Nombre:nombre,Contrasena:password,IdEntidad:entidad,TipoUsuario:tipo}),
                         }).done(function(data) {
                             alert("el usuario fue agregado exitosamente");
                             location.reload();
