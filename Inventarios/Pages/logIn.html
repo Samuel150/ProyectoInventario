@@ -83,15 +83,15 @@
         request.onload = function (){
             try{
                 var dataUser = JSON.parse(request.responseText.toString());
-                if(dataUser.Contrasena.toString() === password.toString()){
+                if(atob(dataUser.Contrasena).toString() === password.toString()){
                     var tipo = dataUser.TipoUsuario;
                     $.ajax({
                         method: 'POST',
                         url: "../Templates/logIn.php",
-                        data: {CI : user, Tipo : tipo},
+                        data: {CI : user,Contrasena: password, Tipo : tipo},
                         dataType: "json"
                     }).done(function (data) {
-                        alert(data.msg);
+                        //alert(data.msg);
                     });
                     window.open("index.html", "_self");
                 }else {
