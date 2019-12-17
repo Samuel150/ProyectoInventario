@@ -78,6 +78,7 @@
         var request = new XMLHttpRequest();
         var user = document.getElementById("user").value;
         var password = document.getElementById("password").value;
+
         request.open("Get", "http://skynet.lp.upb.edu:7875/usuario/"+user, true );
 
         request.onload = function (){
@@ -86,17 +87,18 @@
                 if(atob(dataUser.Contrasena).toString() === password.toString()){
                     var tipo = dataUser.TipoUsuario;
                     var nombre= dataUser.Nombre;
+                    var token = btoa(user+":"+password);
                     $.ajax({
                         method: 'POST',
                         url: "../Templates/logIn.php",
                         dataType: 'json',
-                        contentType: "application/json",
-                        data: JSON.stringify({CI : user,Contrasena: password, Tipo : tipo,Nombre:nombre}),
+                        headers: {Authorization: token},
+                        data: {CI : user,Contrasena: password, Tipo : tipo, Nombre:nombre, Token:token},
                         dataType: "json"
                     }).done(function (data) {
                         alert("Bienvenido");
+                        window.open("index.html", "_self");
                     });
-                    window.open("index.html", "_self");
                 }else {
                     document.getElementById("alert_data").setAttribute("class","alert alert-danger text-white alert-dismissible fade show");
                     document.getElementById("alert_data").setAttribute("style","display:block;");
