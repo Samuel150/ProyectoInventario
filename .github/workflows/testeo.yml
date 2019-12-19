@@ -1,11 +1,12 @@
 name: Testeo
 on: [push]
-
 jobs:
   prueba:
     name: Testeo PHP
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v1
       - name: PHP Syntax Checker (Lint)
         uses: StephaneBour/actions-php-lint@7.3
         with:
