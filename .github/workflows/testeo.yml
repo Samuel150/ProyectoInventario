@@ -33,6 +33,3 @@ jobs:
         job-name: eslint
     - name: deprecatedDependencies
       uses: tinovyatkin/action-check-deprecated-js-deps@v1
-      with:
-        ignore: css-mqpacker # you can optionally ignore some deprecations
-        root: packages # optionally specify a root folder to search for package.jsons
