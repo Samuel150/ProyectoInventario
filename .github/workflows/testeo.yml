@@ -46,6 +46,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Jshint linter
       run: |
-        sudo chmod 777 ../node_modules/.bin/jshint
-        ../node_modules/.bin/jshint logIn.js
+        sudo chmod 777 node_modules/.bin/jshint
+        
       working-directory: Inventarios/Assets/js
