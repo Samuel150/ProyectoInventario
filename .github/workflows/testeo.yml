@@ -33,19 +33,3 @@ jobs:
         job-name: eslint
     - name: deprecatedDependencies
       uses: tinovyatkin/action-check-deprecated-js-deps@v1
-  test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
-    steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Jshint linter
-      run: |
-        sudo chmod 777 node_modules/.bin/jshint
-        
-      working-directory: Inventarios/Assets/js
