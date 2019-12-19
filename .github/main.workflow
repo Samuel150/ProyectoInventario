@@ -1,5 +1,5 @@
-workflow "Push" {
-  on = "push"
+workflow "Pull Request" {
+  on = "pull_request"
   resolves = ["ESLint"]
 }
 
