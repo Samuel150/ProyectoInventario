@@ -2,8 +2,11 @@ name: Testeo
 on: [push]
 
 jobs:
-  Testeo PHP:
-    - name: PHP Syntax Checker (Lint)
-    uses: StephaneBour/actions-php-lint@7.3
-    with:
-      dir: 'Inventarios'
+  prueba:
+    name: Testeo PHP
+    runs-on: ubuntu-latest
+    steps:
+      - name: PHP Syntax Checker (Lint)
+        uses: StephaneBour/actions-php-lint@7.3
+        with:
+          dir: 'Inventarios'
